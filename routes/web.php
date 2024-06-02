@@ -18,19 +18,19 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('signin');
+    return view('index');
 });
 
 // Sign in route
 Route::get('/signin', function () {
-    return view('signin');
+    return view('auth.signin');
 })->name('signin');
 Route::post('/signin', [AuthController::class, 'signin'])->name('signin.submit');
 
 // Sign up route
 Route::get('/signup', function () {
     Auth::routes(['verify' => true]);
-    return view('signup');
+    return view('auth.signup');
 })->name('signup');
 Route::post('/signup', [AuthController::class, 'signup'])->name('signup.submit');
 
@@ -63,3 +63,7 @@ Route::get('/profile', function () {
     return view('profile', compact('user'));
 })->middleware('auth')->name('profile');
 Route::post('/update', [UserController::class, 'update'])->name('update');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
