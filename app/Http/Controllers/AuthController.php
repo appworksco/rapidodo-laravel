@@ -23,6 +23,14 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
+        // Check if the user with the given email exists
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            // User does not exist
+            return redirect()->route('signin')->with('error', 'No account found with this email address.');
+        }
+
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             $user = Auth::user();

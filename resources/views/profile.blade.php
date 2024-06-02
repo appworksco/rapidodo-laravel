@@ -44,9 +44,27 @@
         <div class="col-md-8 mb-3">
             <div class="rounded shadow-sm p-4 bg-white">
                 <h5 class="mb-4">My account</h5>
+                @if ($errors->any())
+                <div class="alert alert-danger pb-0">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                @if (session('error'))
+                <div class="alert alert-danger pb-0">
+                    <ul>
+                        <li>{{ session('error') }}</li>
+                    </ul>
+                </div>
+                @endif
                 @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
+                <div class="alert alert-success pb-0">
+                    <ul>
+                        <li>{{ session('success') }}</li>
+                    </ul>
                 </div>
                 @endif
                 <div id="edit_profile">

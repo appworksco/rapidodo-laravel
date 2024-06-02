@@ -11,8 +11,10 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'mobile_number' => 'required|numeric',
+            'mobile_number' => ['required', 'regex:/^0[0-9]{10}$/'],
             'email' => 'required|email|max:255',
+        ], [
+            'mobile_number.regex' => 'The mobile number must be 11 digits and start with 0.',
         ]);
 
         $user = auth()->user(); // Assuming you are updating the authenticated user
